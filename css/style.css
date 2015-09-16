@@ -1,0 +1,118 @@
+body {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.container {
+  float: left;
+  width: 748px;
+  margin-top: 50px;
+  color: #989898;
+}
+
+.box-design {
+  background: #1e2427 none repeat scroll 0 0;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.select-design > div {
+  width: 50%;
+  float: left;
+  color: #fff;
+}
+
+.select-design > div span {
+  margin-left: 20px;
+  color: #989898;
+  padding-top: 5px;
+  display: block;
+}
+
+.text-handeling,
+.add-logo,
+.text-decimal,
+.shirt-position,
+.text-edit {
+  height: 120px;
+}
+
+.text-preview,
+.shirt-preview {
+  height: 250px;
+}
+
+.text-edit,
+.add-logo,
+.text-decimal,
+.text-preview {
+  width: 440px;
+  float: left;
+}
+
+.text-edit h3,
+.box-design h3 {
+  margin: 0;
+}
+
+.text-edit > div {
+  margin-top: 10px;
+}
+
+.text-edit .shirt-text textarea {
+  resize: none;
+}
+
+.shirt-text .color-icons {
+  width: 50%;
+}
+
+.color-icons ul {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+
+.color-icons li {
+  border: 2px solid #000;
+  border-radius: 50%;
+  float: left;
+  height: 20px;
+  margin: 2px;
+  text-indent: -99999px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.shirt-position,
+.shirt-preview {
+  display: inline-block;
+  margin-left: 10px;
+  width: 257px;
+}
+
+.text-preview-area {
+  background-color: #1f4434;
+  height: 90%;
+  height: calc(100% - 20px);
+  width: 100%;
+}
+
+
+.add-logo h4{
+  margin: 0;
+}

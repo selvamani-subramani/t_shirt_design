@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>T-Shirt design</title>
+  <script type="text/javascript" src="js/script.js"></script>
+  <link type="text/css" rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="select-design box-design">
+      <div class="option1">
+        <label>
+          <input type="checkbox" name="add_front_text" id="add_names"> Add team name (multi-line text)
+          <span>$6.95 per shirt</span>
+        </label>
+      </div>
+      <div class="option2">
+        <label>
+          <input type="checkbox" name="add_front_logo" id="add_logo"> Upload your own logo (single color)
+          <span>$9.95 per shirt</span>
+        </label>
+      </div>
+      <div class="option3">
+        <label>
+          <input type="checkbox" name="add_front_decal" id="add_decal"> Add team decal (text + decal)
+          <span>$7.95 per shirt</span>
+        </label>
+      </div>
+      <div class="option4">
+        <label>
+          <input type="checkbox" name="add_numbers_front" id="add_nos_front"> Add front numbers to match back
+          <span>$4.45 per shirt</span>
+        </label>
+      </div>
+    </div>
+    <div class="text-edit box-design hidden">
+      <h3>Enter Text</h3>
+      <div class="preview-property">
+        <label>Font</label>
+        <select class="fonts">
+          <option>Academic</option>
+        </select>
+        <select class="fontp">
+          <option>left</option>
+          <option>center</option>
+          <option>right</option>
+        </select>
+        <select class="fonti">
+          <option>1x Spacing</option>
+          <option>1.5x Spacing</option>
+          <option>2x Spacing</option>
+        </select>
+      </div>
+      <div class="shirt-text">
+        <label>Text</label>
+        <textarea></textarea>
+        <div class="color-icons pull-right">
+          <ul>
+            <li style="background-color :#ffffff;">ffffff</li>
+            <li style="background-color :#858585;">858585</li>
+            <li style="background-color :#0000CA;">0000CA</li>
+            <li style="background-color :#000063;">000063</li>
+            <li style="background-color :#610061;">610061</li>
+            <li style="background-color :#BF6C7A;">BF6C7A</li>
+            <li style="background-color :#004D00;">004D00</li>
+            <li style="background-color :#CACA00;">CACA00</li>
+            <li style="background-color :#006300;">006300</li>
+            <li style="background-color :#CA0000;">CA0000</li>
+            <li style="background-color :#BE8718;">BE8718</li>
+            <li style="background-color :#004D00;">004D00</li>
+            <li style="background-color :#004D5C;">004D5C</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="add-logo box-design hidden">
+      <h3>Your Logo</h3>
+      <label>Click Upload Image to upload your logo</label>
+      <input id="fileupload" type="file" multiple="" name="files[]">
+      <h4>Color</h4>
+      <div class="color-icons">
+        <ul>
+          <li style="background-color :#ffffff;">ffffff</li>
+          <li style="background-color :#858585;">858585</li>
+          <li style="background-color :#0000CA;">0000CA</li>
+          <li style="background-color :#000063;">000063</li>
+          <li style="background-color :#610061;">610061</li>
+          <li style="background-color :#BF6C7A;">BF6C7A</li>
+          <li style="background-color :#004D00;">004D00</li>
+          <li style="background-color :#CACA00;">CACA00</li>
+          <li style="background-color :#006300;">006300</li>
+          <li style="background-color :#CA0000;">CA0000</li>
+          <li style="background-color :#BE8718;">BE8718</li>
+          <li style="background-color :#004D00;">004D00</li>
+          <li style="background-color :#004D5C;">004D5C</li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-decimal box-design ">
+      <h3>Decal Text & Image</h3>
+      <div class="pull-left">
+        <div>
+          <label>Font</label>
+          <select class="fonts">
+            <option>Academic</option>
+          </select>
+          <select class="fontc">
+            <option>Orange</option>
+          </select>
+        </div>
+        <div>
+          <label>Line</label>
+          <input type="text" value="Decal Text A" id="decalTextA" maxlength="25" name="decal_text_a">
+          <select class="linep">
+            <option>Top</option>
+            <option>Middle</option>
+            <option>Bottom</option>
+          </select>
+          <select class="line-img">
+            <option>line1</option>
+            <option>line2</option>
+            <option>line3</option>
+          </select>
+        </div>
+        <div>
+          <label>Line</label>
+          <input type="text" value="Decal Text B" id="decalTextB" maxlength="25" name="decal_text_b">
+          <select class="linep">
+            <option>Top</option>
+            <option>Middle</option>
+            <option>Bottom</option>
+          </select>
+          <select class="line-img">
+            <option>line1</option>
+            <option>line2</option>
+            <option>line3</option>
+          </select>
+        </div>
+      </div>
+      <div class="image-box pull-left">
+      </div>
+    </div>
+    <div class="shirt-position box-design">
+      <h3>Position</h3>
+    </div>
+    <div class="text-preview box-design">
+      <h3>Preview</h3>
+      <div class="text-preview-area"></div>
+    </div>
+    <div class="shirt-preview box-design">
+      <h3>Preview</h3>
+      <div class="shirt-preview-area"></div>
+    </div>
+  </div>
+</body>
+
+</html>
