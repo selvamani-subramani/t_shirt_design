@@ -3,8 +3,11 @@
 
 <head>
   <title>T-Shirt design</title>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/html2canvas.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
   <link type="text/css" rel="stylesheet" href="css/style.css" />
+
 </head>
 
 <body>
@@ -12,7 +15,7 @@
     <div class="select-design box-design">
       <div class="option1">
         <label>
-          <input type="checkbox" name="add_front_text" id="add_names"> Add team name (multi-line text)
+          <input type="checkbox" name="add_front_text" id="add_names" checked> Add team name (multi-line text)
           <span>$6.95 per shirt</span>
         </label>
       </div>
@@ -35,7 +38,7 @@
         </label>
       </div>
     </div>
-    <div class="text-edit box-design hidden">
+    <div class="text-edit box-design">
       <h3>Enter Text</h3>
       <div class="preview-property">
         <label>Font</label>
@@ -98,7 +101,7 @@
         </ul>
       </div>
     </div>
-    <div class="text-decimal box-design ">
+    <div class="text-decimal box-design hidden">
       <h3>Decal Text & Image</h3>
       <div class="pull-left">
         <div>
@@ -144,16 +147,41 @@
     </div>
     <div class="shirt-position box-design">
       <h3>Position</h3>
+      <div class="tshirt-image-left">
+        <img src="images/tshirt-left-position.gif" alt="left-position">
+        <p>Top Right</p>
+      </div>
+      <div class="tshirt-image-center low-opacity">
+        <img src="images/tshirt-center-position.gif" alt="left-position">
+        <p>Center</p>
+      </div>
+      <div class="tshirt-image-right low-opacity">
+        <img src="images/tshirt-right-position.gif" alt="left-position">
+        <p>Top Right</p>
+      </div>
+      <div class="display-number pull-right">
+        <div class="big-number">
+          <p><span>12</span>12</p>
+          <small>Big No</small>
+        </div>
+        <div class="small-number">
+          <p><span>12</span>12</p>
+          <small>Small No</small>
+        </div>
+      </div>
     </div>
     <div class="text-preview box-design">
       <h3>Preview</h3>
-      <div class="text-preview-area"></div>
+      <div id="text-preview-area">
+        <canvas id="update_logo"></canvas>
+      </div>
     </div>
     <div class="shirt-preview box-design">
       <h3>Preview</h3>
       <div class="shirt-preview-area"></div>
     </div>
   </div>
+  <img src="" id="upload_image">
 </body>
 
 </html>

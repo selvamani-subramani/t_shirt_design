@@ -53,7 +53,7 @@ body {
 
 .text-preview,
 .shirt-preview {
-  height: 250px;
+  height: 300px;
 }
 
 .text-edit,
@@ -105,14 +105,104 @@ body {
   width: 257px;
 }
 
-.text-preview-area {
+#text-preview-area {
   background-color: #1f4434;
   height: 90%;
   height: calc(100% - 20px);
   width: 100%;
 }
 
+.shirt-preview-area {
+    width: 100%;
+    background: url("../images/preview_image.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: calc(100% - 20px);
+}
 
-.add-logo h4{
+.add-logo h4 {
   margin: 0;
+}
+
+.text-decimal > div > div {
+  margin-top: 5px;
+}
+
+.shirt-position > div {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.shirt-position > div:not(.display-number) {
+  cursor: pointer;
+}
+
+.shirt-position .display-number {
+  display: none;
+}
+
+.shirt-position > div p {
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+}
+
+.shirt-position > div.display-number {
+  display: none;
+}
+
+.low-opacity {
+  opacity: 0.6;
+}
+
+.shirt-position img {
+  margin-right: 2px;
+  margin-top: 10px;
+  margin-left: 2px;
+  height: 76px;
+  max-width: 100%;
+}
+
+.shirt-position.add-number img {
+  height: 56px;
+}
+
+.shirt-position.add-number > div {
+  display: inline-block;
+}
+
+.shirt-position.add-number > div.tshirt-image-right {
+  border-right: 1px solid #ece7e7;
+  padding-right: 15px;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div {
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div > p {
+  font-size: 22px;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div > p > span {
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div.big-number > p {
+  color: #fff;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div.big-number > p > span {
+  color: #737373;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div.small-number > p {
+  color: #737373;
+}
+
+.shirt-position.box-design.add-number > div.display-number > div.small-number > p > span {
+  color: #fff;
 }
