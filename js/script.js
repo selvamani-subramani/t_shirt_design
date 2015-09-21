@@ -189,13 +189,14 @@ tshirts.set_logo_position = function(place) {
 //
 
 tshirts.apply_canvas_to_tshirt = function() {
-  $("#shirt-preview-area .dataImage").remove();
+  
   html2canvas($("#text_content"), {
     onrendered: function(canvas) {
       //$("#shirt-preview-area").append(canvas);
       // var context = canvas.getContext("2d");
       // context.fillStyle = "red";
       imgData = canvas.toDataURL("image/png");
+      $("#shirt-preview-area .dataImage").remove();
       $("#shirt-preview-area").prepend("<img class='dataImage' src=''>")
       $("#shirt-preview-area img").attr("src", imgData);
       $("#shirt-preview-area").find("span").css( "color", t_color );
