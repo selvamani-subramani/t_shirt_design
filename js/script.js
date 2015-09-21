@@ -215,7 +215,7 @@ tshirts.reset_preview_box = function() {
 $("documnet").ready(function() {
 
   if ($("#add_names").prop('checked')) {
-    $(".ext-edit").removeClass("hidden");
+    $(".text-edit").removeClass("hidden");
     $("#text_content").append("<span></span>");
     tshirts.enter_text();
   } else if ($("#add_logo").prop('checked')) {
