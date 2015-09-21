@@ -5,9 +5,9 @@
   <title>T-Shirt design</title>
   <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="js/html2canvas.js"></script>
+  <script type="text/javascript" src="js/jquery-bigtext.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
   <link type="text/css" rel="stylesheet" href="css/style.css" />
-
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     <div class="select-design box-design">
       <div class="option1">
         <label>
-          <input type="checkbox" name="add_front_text" id="add_names" checked> Add team name (multi-line text)
+          <input type="checkbox" name="add_front_text" id="add_names"> Add team name (multi-line text)
           <span>$6.95 per shirt</span>
         </label>
       </div>
@@ -27,7 +27,7 @@
       </div>
       <div class="option3">
         <label>
-          <input type="checkbox" name="add_front_decal" id="add_decal"> Add team decal (text + decal)
+          <input type="checkbox" name="add_front_decal" id="add_decal" checked> Add team decal (text + decal)
           <span>$7.95 per shirt</span>
         </label>
       </div>
@@ -38,27 +38,31 @@
         </label>
       </div>
     </div>
-    <div class="text-edit box-design">
+    <div class="text-edit box-design hidden">
       <h3>Enter Text</h3>
       <div class="preview-property">
         <label>Font</label>
-        <select class="fonts">
-          <option>Academic</option>
+        <select class="display-fonts">
+          <option>Arial Black</option>
+          <option>sans-serif</option>
+          <option>Lucida Sans</option>
+          <option>Snap ITC</option>
+          <option>Times New Roman</option>
         </select>
-        <select class="fontp">
+        <select id="fontp">
           <option>left</option>
-          <option>center</option>
+          <option selected>center</option>
           <option>right</option>
         </select>
-        <select class="fonti">
-          <option>1x Spacing</option>
-          <option>1.5x Spacing</option>
-          <option>2x Spacing</option>
+        <select id="fonti">
+          <option value="0" selected>1x Spacing</option>
+          <option value="20">1.5x Spacing</option>
+          <option value="40">2x Spacing</option>
         </select>
       </div>
       <div class="shirt-text">
         <label>Text</label>
-        <textarea></textarea>
+        <textarea>Hello&#10;World</textarea>
         <div class="color-icons pull-right">
           <ul>
             <li style="background-color :#ffffff;">ffffff</li>
@@ -82,7 +86,7 @@
       <h3>Your Logo</h3>
       <label>Click Upload Image to upload your logo</label>
       <input id="fileupload" type="file" multiple="" name="files[]">
-      <h4>Color</h4>
+      <!-- <h4>Color</h4>
       <div class="color-icons">
         <ul>
           <li style="background-color :#ffffff;">ffffff</li>
@@ -99,23 +103,42 @@
           <li style="background-color :#004D00;">004D00</li>
           <li style="background-color :#004D5C;">004D5C</li>
         </ul>
-      </div>
+      </div> -->
     </div>
+    <!-- Setting boxes -->
     <div class="text-decimal box-design hidden">
       <h3>Decal Text & Image</h3>
       <div class="pull-left">
         <div>
           <label>Font</label>
-          <select class="fonts">
-            <option>Academic</option>
+          <select class="display-fonts">
+            <option>Arial Black</option>
+            <option>sans-serif</option>
+            <option>Lucida Sans</option>
+            <option>Snap ITC</option>
+            <option>Times New Roman</option>
           </select>
-          <select class="fontc">
-            <option>Orange</option>
-          </select>
+          <div class="color-icons">
+            <ul>
+              <li style="background-color :#ffffff;">ffffff</li>
+              <li style="background-color :#858585;">858585</li>
+              <li style="background-color :#0000CA;">0000CA</li>
+              <li style="background-color :#000063;">000063</li>
+              <li style="background-color :#610061;">610061</li>
+              <li style="background-color :#BF6C7A;">BF6C7A</li>
+              <li style="background-color :#004D00;">004D00</li>
+              <li style="background-color :#CACA00;">CACA00</li>
+              <li style="background-color :#006300;">006300</li>
+              <li style="background-color :#CA0000;">CA0000</li>
+              <li style="background-color :#BE8718;">BE8718</li>
+              <li style="background-color :#004D00;">004D00</li>
+              <li style="background-color :#004D5C;">004D5C</li>
+            </ul>
+          </div>
         </div>
         <div>
           <label>Line</label>
-          <input type="text" value="Decal Text A" id="decalTextA" maxlength="25" name="decal_text_a">
+          <input type="text" value="Your" id="decalTextA" maxlength="25" name="decal_text_a">
           <select class="linep">
             <option>Top</option>
             <option>Middle</option>
@@ -129,7 +152,7 @@
         </div>
         <div>
           <label>Line</label>
-          <input type="text" value="Decal Text B" id="decalTextB" maxlength="25" name="decal_text_b">
+          <input type="text" value="Name" id="decalTextB" maxlength="25" name="decal_text_b">
           <select class="linep">
             <option>Top</option>
             <option>Middle</option>
@@ -143,19 +166,21 @@
         </div>
       </div>
       <div class="image-box pull-left">
+        <img id="preload-image" src="images/12540.png" style="width: 100%;height: auto;">
       </div>
     </div>
+    <!-- Tshirt set position -->
     <div class="shirt-position box-design">
       <h3>Position</h3>
       <div class="tshirt-image-left">
         <img src="images/tshirt-left-position.gif" alt="left-position">
         <p>Top Right</p>
       </div>
-      <div class="tshirt-image-center low-opacity">
+      <div class="tshirt-image-center position-selected">
         <img src="images/tshirt-center-position.gif" alt="left-position">
         <p>Center</p>
       </div>
-      <div class="tshirt-image-right low-opacity">
+      <div class="tshirt-image-right">
         <img src="images/tshirt-right-position.gif" alt="left-position">
         <p>Top Right</p>
       </div>
@@ -170,17 +195,25 @@
         </div>
       </div>
     </div>
+    <!-- Tshirt Preview area -->
     <div class="text-preview box-design">
-      <h3>Preview</h3>
+      <h3>Text Preview</h3>
       <div id="text-preview-area">
-        <canvas id="update_logo"></canvas>
+        <div id="text_content">
+        </div>
       </div>
     </div>
+
     <div class="shirt-preview box-design">
-      <h3>Preview</h3>
-      <div class="shirt-preview-area"></div>
+      <h3>Image Preview</h3>
+      <!-- <img src="images/preview_image.gif"> -->
+      <div id="shirt-preview-area" class="pcenter">
+        
+      </div>
     </div>
   </div>
+
+  <canvas id="update_logo"></canvas>
   <img src="" id="upload_image">
 </body>
 

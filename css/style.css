@@ -75,6 +75,7 @@ body {
 
 .text-edit .shirt-text textarea {
   resize: none;
+  height: 50px;
 }
 
 .shirt-text .color-icons {
@@ -112,13 +113,72 @@ body {
   width: 100%;
 }
 
-.shirt-preview-area {
-    width: 100%;
-    background: url("../images/preview_image.gif");
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: calc(100% - 20px);
+.shirt-preview {
+  background-image: url("../images/preview_image.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
 }
+
+#shirt-preview-area {
+  width: 100%;
+  height: calc(100% - 20px);
+  position: relative;
+}
+
+
+/*Adjust img position*/
+
+#shirt-preview-area img {
+  height: auto;
+  position: relative;
+}
+
+#shirt-preview-area.pleft img,
+#shirt-preview-area.pright img {
+  top: 60px;
+  width: 52px;
+}
+
+#shirt-preview-area.pleft img {
+  left: 75px;
+}
+
+#shirt-preview-area.pcenter img {
+  width: 85px;
+  top: 75px;
+  left: 90px;
+}
+
+#shirt-preview-area.pright img {
+  left: 140px;
+}
+
+
+/*sd*/
+
+#shirt-preview-area span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 20px;
+  transform: translate(-37%, -180%);
+}
+
+#shirt-preview-area span.big-font {
+  font-size: 50px;
+}
+
+#shirt-preview-area.pleft span {}
+
+#shirt-preview-area.pcenter span {
+  left: 143px;
+  top: 128px;
+}
+
+#shirt-preview-area.pright span {}
+
+
+/*END Adjust canvas position*/
 
 .add-logo h4 {
   margin: 0;
@@ -126,6 +186,12 @@ body {
 
 .text-decimal > div > div {
   margin-top: 5px;
+}
+
+.text-decimal > .image-box {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ccc;
 }
 
 .shirt-position > div {
@@ -177,6 +243,16 @@ body {
   padding-right: 15px;
 }
 
+.shirt-position .tshirt-image-left,
+.shirt-position .tshirt-image-center,
+.shirt-position .tshirt-image-right {
+  opacity: 0.5;
+}
+
+.shirt-position > div.position-selected {
+  opacity: 1;
+}
+
 .shirt-position.box-design.add-number > div.display-number > div {
   cursor: pointer;
   margin-bottom: 5px;
@@ -205,4 +281,18 @@ body {
 
 .shirt-position.box-design.add-number > div.display-number > div.small-number > p > span {
   color: #fff;
+}
+
+#text_content img {
+  width: 440px;
+  height: 280px;
+}
+
+#text_content p {
+  z-index: 999;
+  position: relative;
+}
+
+#shirt-preview-area span {
+  display: none !important;
 }
