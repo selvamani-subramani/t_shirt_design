@@ -15,7 +15,7 @@
     <div class="select-design box-design">
       <div class="option1">
         <label>
-          <input type="checkbox" name="add_front_text" id="add_names" checked> Add team name (multi-line text)
+          <input type="checkbox" name="add_front_text" id="add_names"> Add team name (multi-line text)
           <span>$6.95 per shirt</span>
         </label>
       </div>
@@ -27,7 +27,7 @@
       </div>
       <div class="option3">
         <label>
-          <input type="checkbox" name="add_front_decal" id="add_decal" > Add team decal (text + decal)
+          <input type="checkbox" name="add_front_decal" id="add_decal" checked> Add team decal (text + decal)
           <span>$7.95 per shirt</span>
         </label>
       </div>
@@ -136,37 +136,37 @@
             </ul>
           </div>
         </div>
-        <div>
+        <div class="text-top">
           <label>Line</label>
           <input type="text" value="Your" id="decalTextA" maxlength="25" name="decal_text_a">
-          <select class="linep">
-            <option>Top</option>
-            <option>Middle</option>
-            <option>Bottom</option>
+          <select class="text-position">
+            <option value="top">Top</option>
+            <option value="middle">Middle</option>
+            <option value="bottom">Bottom</option>
           </select>
-          <select class="line-img">
-            <option>line1</option>
-            <option>line2</option>
-            <option>line3</option>
+          <select class="test-design">
+            <option value="line1">line1</option>
+            <option value="line2">line2</option>
+            <option value="line3">line3</option>
           </select>
         </div>
-        <div>
+        <div class="text-bottom">
           <label>Line</label>
           <input type="text" value="Name" id="decalTextB" maxlength="25" name="decal_text_b">
-          <select class="linep">
-            <option>Top</option>
-            <option>Middle</option>
-            <option>Bottom</option>
+          <select class="text-position">
+            <option value="top">Top</option>
+            <option value="middle">Middle</option>
+            <option value="bottom">Bottom</option>
           </select>
-          <select class="line-img">
-            <option>line1</option>
-            <option>line2</option>
-            <option>line3</option>
+          <select class="test-design">
+            <option value="line1">line1</option>
+            <option value="line2">line2</option>
+            <option value="line3">line3</option>
           </select>
         </div>
       </div>
       <div class="image-box pull-left">
-        <img id="preload-image" src="images/12540.png" style="width: 100%;height: auto;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABHCAYAAACQwsCOAAAMHElEQVR4nOWcYYhV1xHH57wuyyIiIkFCSK2I2GCliE1DEQkiIlaCBBEJIRGRNpUSRCQEEQlIEAkhtEFEJJV8EBETRIIEK9aKiCwiYsRKaqy1YmRrrDVGtmZj9v/rh5nrXl/eu+/du291Ewcuru+eM2fOOXPmzPzPnJtslBLQbWbjAEspfZVS+uZhy/S9IEkzgZ1AHzAYzzVgF/DMw5Zv1JKkbuDtGLAi2iZp7MOWd1QR0C1pvyTafI4B4x623KOCgBqwO6dh/cB7wEJgcjwLgR3xLqNDYScfbQLWZpoFnACmFpSdCpzIld/0IGUddSRpBjAQGrVf0pg26vQAe6POoKTZD0LWUUdATdKh0KYT7Qxerm4PcCyrC3SNpKyjkoBFoUU3gMkV6j8JXA8eL46AiKOXAANOAkj6zTD4rIwBPCup1kkZRzUBC6Ljp4DKHY8d/GTwWthJGUctSTLgQGjfsDudm4yPOyHfqCdJUyXdBXqHo305fjVJJyUNVLGlw6WHYTdeTil1mdmWlJKGy6xWqyml9G5KqdvMXhi+eOUoVakEmJlNBeab2S/MbIqZPW5mY80nRWb2pZl9YWb/MrPzZvZJSulvQG9KaQzw41qt1hGEJdyaK2b2eUrp12Y2A5hpZj81s0lmNtHMxplZd8j2lZl9bmafmdnxlNJfU0r/6YQs7Qg7DzhG66C/Ed2Nf68Ab0qaJ6lnGLL0SJoPbMLRm3wbGQ0CA5KK5O0Hdkl6qpNjVS9sDdgsabAusO8HPgZeA+ZLegqYCIwHHsfDrznAS5L2Rkf6cnxuSvoQWAK0dKaD74uS9km6FSHdAHAmeH4UkzwVGC+pC+gKtGcCMANYiiM/n9b1ZQBYQwdscyPB19fN2i1J6yU9VoLHFuAC0AVMkbRC0h7gZvC8HmWm5+tJqgHP4jjhrSh7DXhf0lLgseB5GThSQp4asEjSp3V9W1tmbNppaLKkgVwQf5aSOx5gks5J2tHgXQ/wPPAh0B+adBBHYVZJOhtt9wHbQsO+g8RI2iPpNiWhLmAscCiniXeASWV4tGpgA5ANXp+kJyvweELSXUnLW5SbGNp+N9pD0i3gBaDQXkpaHeXnVpBvAnA11883yvIoYn4g021JayryeD7qT2tWRtI43JZeiWW9PZZtfyzZ14pAB0nPRBvrKsr4em4ZH6rCoxnjMzn1rqTakjZJutnIQAOPSdoUNvAysBYYn3v/BPBWbDhXJP2+kTbiu/KApA+ryAj8PG+mqvBoxvhMzMpt3AeswuMAcLTutzGS1gE3JF0FGg5MrvwEYGNo50VJyyV11ZU5CXxaRUZJY3MaeLoKj2aMD8bMXKvKA7giaUvu/wsknQ836M0yhl/SRGBL2NQzwNzcu+0RKpaG+yWNyWlg52JrSZtjVu7Wz3g7BIyL+quAMbirMggclDRNKh/RSTJJTwOng9dWSWMlvRJtNbW1BXJOzmngm6WFKhB2bm5mZlaoPzPqrpR0Omzh8kb2sCzhJ3rrJd2RdA54NdpaVEHOJbl+zhmubHnGXbEzApTe4YDFUfcOcIQRQE2AGZJ6GQoxV1Xg8V7UvdiJyb2PYpaJWW57GQMTw4YOAm+UqVtBxi5gXdjGC8CMEnKOk3QjtK+Sq9aqgQm4LwawuM06cyRlmtvX8Vlt3u6ncM8BX0obngPuOoE70yOT+ZDZl9j5mg4GfuaxKkKigxH4d84taEGSjoQGHgnN36SCMxMcdLgW2vfKiAmGB+zZwfarTcp0h4sxKOkPkrokfdyuWxDAwQIcXjoj6bCkrZIWFA1CHY+9ks7HBrMz5N3dKIrBY/StUeb4iK8SHA7qx1GRqXXvxgD7cEzu1Wzp4BkHO1vxlh+a7+R+ugXMBl7B3Z+W+CEeAl4OnjUcLwQ4Ckyoa3N+yHubOhRoxAj357ID8e74bXwIeAdYWifkeeDdFjxrkuoHL6MT4fdNlbSllZaE5vfleBuwJhzss1k4ip8t90VfVlQekLIUar8jOrcNd5SP4cDm4vqywFVJG4t4SnqWYpR7CTA/BmBuC16bgL78byHz8pDxkjytpDfXh8rjUYnwwD1Lr7gYs7usQbkuSdclvV7EL7SmKKVtv6SFoYVvteC1Ma+Bde+WyQGHDN881I5ZaEaVDWZK6euU0m9TSkopTUkp/TGl9EF9OaCWUqq1OoFLKU1KKVnB822tVvtzSumfKaXCuDmlNJhS4/OyWq32QUrpTyml7pTSt2b2u5TS12X6fh+/qhXx3XYbDot/A6yQ1CjMEyAzK3SggS9iuTd7ZknajiNDrcT7UbMywArgNyFzl5m9NxwNrEz4jgiwR9IcHGK6DszKl4td8BotgnNJzxXYv3oqdOSBzY1sIL75DQI3Jc2WtO+h2EBgWdiP8wQMBcyUg503yMFLZmaSLkkq3IXlGQYHC2xg9hymRTgY9vRSTl7D0exBSdeyScbDtwvhQL9UeUDKEJFWJkc/nql7NwU4j/uJS3K/n5bU0g/Ew8XjzdRO0nFJE9rgsx04F3/XFHBcbHb3wVxySGwgwr7SEFgpipncH/3Z1EjtcfDgKO6crsNt5FHajETw6GEVcFIOtvZLOoWj1W2BpMCemIhuPLca3GV5vEn5jVHmWLvRTiWStCQaukLBIXhEFLui7K4Ix05VaK9LFQDcaO8wQ4dhu4vkxY9VL0TZlWXba4uikfPRSMuAOzRvXWjiIO5MP1A0JtpdTxvxraQXcsrReTRGnkWQHW63nc8sab6kq3KMbmU7nalKYe9eCyf5uqTnSsjZJSlL9VjdacEMzyaFFjFtk/ov5jTiI6D0wXwbbUwBDuf2nNKgKEPnwhc6OtHAdA2dFSyoUH921F0NXJCf766iA+h0mIpVsYv2SVoXbbWtfTle9/qpTl6fkLQ2N7NtJxPlBJsYdVfgwMPWsI3HgJlUcGJjVTwVWjcIvI97AFn2f2loKpz+21G/EPwoy3i3hpJuStfHkZCbwDu532bLU3PvStoGTCzBbyyOMmcncfNy79YHz0rhmfysGkn7q9RvJnDm3FYawODRCxzM/yY/BFrJUC7MuqINCkfEV+LpH7eifE9dmb1UzEyI+hejrx3NTDiRrV9JDZ3RNnhsx2PlRrkxWYrH9RjM1crB77hD/FJo20As14YbkaRLQKXcGHkS5kD0s6O5MVn0AbCionDZpZiiy4Tj8ajgBu43bpC0AbiEh1s7genNVoGkJ6KNqtlZmf1E0uEqPJox3pDbhc8VLbMCHtNDsBUtytUkLVak78YzIM/9a5UfmIEccyvI1y2pN9fPzt0ElTSNSHiMZxclk3diefQBuxoIb5ImhwtyLpTgKh5vrwYyw94naYukXzWKauSJRbcllc1QrUXdbPDu0mlgQdLb3E+9chywjKC7cWywJ56nJa3HN5hBfJPaj59/3JsgOdS1MDaIO9H+RUnvSJqH78o13AFue+nJD6pm4ekmedpccnja6vw9ZCOniYOSTsnPILIb5mPwc5AufNfskTQJz1LYEfVO4TmBWZb/AfzYsuUGhSeUr8RvBvQHj9vhEmVZ+s9KuidL7ukBJgHzwr72KnfrIPq2hZFKP5Hfc1sm6SzF1I+7Jf1N3l/FUeOFDCNwD81bFLyutpDlNs1P/QZxp7703b2qN5W6zOxpM1tgZr+0795UMjP7n5n918w+Bz5LKZ01s0+At8xsUkrpJ536Foz8bPqKmX2ZUnrZzGaa2c9CrifNbEJOtm/Nb1H928z+YWanzOwvZvb3ZgdRD4zCVnVTEIhLWhOz3rFL0sCy4Nm5pMjRSvh1hzvyXL5O3NY0SUfl59IPJjXjYRNDH40onUXagNcceQbWEVVIFf5eEr4LIun0cLQQR2SOBK+lrWv8QAh3nE9Fx0un4ub4LAn34yKP2pc7NHRAdUPS5LL18SPQy8Gj8ocrvreEh09ZclIvJdIrou4+DWXLPpqfgAJmMXRBek/4c4UkR43fzTnAcx+AqKOXIgzMQsNDFIRzeC7znlzo9U6zso8M4TH2vdugOKi6AZgWS7WG3z5/nfvDtWNllv0PmuTXXI/lNDGPAw7U/46jN+Nbc36ECIf1t2eoSAG9z0jd4/ghEJ6Rvxu4FlBT9g3V3XTy/lqH6CHDD81JUneWygt81alvzHSa/g+w/6SQNKnr1AAAAABJRU5ErkJgggo=" style="width: 100%;height: auto;"/>
       </div>
     </div>
     <!-- Tshirt set position -->
@@ -206,7 +206,7 @@
 
     <div class="shirt-preview box-design">
       <h3>Image Preview</h3>
-      <!-- <img src="images/preview_image.gif"> -->
+      <img src="images/preview_image.gif">
       <div id="shirt-preview-area" class="pcenter">
         
       </div>

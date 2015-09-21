@@ -11,6 +11,7 @@ tshirts.item_select = function() {
       $("#text-preview-area").addClass("low-opacity");
       $("#shirt-preview-area .dataImage").remove();
       $("#shirt-preview-area").removeClass("pcenter").removeClass("pleft").removeClass("pright");
+      $("#shirt-preview-area").addClass("big-number-font");
       return false;
     } else {
       var klass = $(".shirt-position .position-selected");
@@ -122,6 +123,14 @@ tshirts.update_image = function(input) {
 
 //Option 3 Edit setting
 tshirts.change_image_and_text = function() {
+
+  $(".text-decimal select").on('change', function() {
+    if ($(this).hasClass("display-fonts")) {
+      t_font = $(this).val();
+    }
+    tshirts.update_image_and_text();
+  })
+
   $(".text-decimal .color-icons li").on('click', function() {
     t_color = "#" + $(this).text();
     tshirts.update_image_and_text();
@@ -130,16 +139,60 @@ tshirts.change_image_and_text = function() {
     tshirts.update_image_and_text();
   })
 
-  $(".text-decimal select").on('change', function() {
-    if ($(this).hasClass("display-fonts")) {
-      t_font = $(this).val();
-    }
-    tshirts.update_image_and_text();
-  })
+  
+
+  tshirts.update_image_and_text()
+  
 }
 
 tshirts.update_image_and_text = function() {
+  var data = $(".text-decimal .image-box img").attr("src");
 
+  $("#text_content img").attr("src" , data);
+  
+
+  $("#text_content").css({
+    "color": t_color,
+    "font-family": t_font
+  }); 
+
+  var t_position = $(".text-decimal .text-top .text-position").val();
+  var b_position = $(".text-decimal .text-bottom .text-position").val();
+
+  var text_height = $("#text_content p.top-text").height()
+  var set_t = 0;
+  var set_b = 0;
+  if(t_position == b_position){
+    if(t_position == "top"){
+      set_t = 0;
+      set_b = text_height + 5 + set_t;
+    }else if(t_position == "middle"){
+      set_t = 30;
+      set_b = text_height + 5 + set_t;
+    }else if(t_position == "bottom"){
+      set_t = 30;
+      set_b = text_height + 5 + set_t;
+    }
+  }else{
+    if(t_position == "top"){
+      set_t = 0;
+    }else if(t_position == "middle"){
+      set_t = 45;
+    }else if(t_position == "bottom"){
+      set_t = 30;
+    }
+    if(b_position == "top"){
+      set_b = 0;
+    }else if(b_position == "middle"){
+      set_b = 45;
+    }else if(b_position == "bottom"){
+      set_b = 30;
+    }
+  }
+  $("#text_content p.top-text").text($("#decalTextA").val()).css("top", set_t + "px");
+  $("#text_content p.bottom-text").text($("#decalTextB").val()).css("top", set_b + "px");
+
+  tshirts.apply_canvas_to_tshirt();
 }
 
 //
@@ -156,8 +209,11 @@ tshirts.select_number = function() {
       $("#shirt-preview-area").removeClass("display-number").find("span").remove();
     }
   })
-  $(".display-number .big-number, .display-number .small-number").click(function() {
-    alert("sd")
+  $(".display-number .small-number").click(function() {
+    $("#shirt-preview-area").removeClass("big-number-font");
+  })
+  $(".display-number .big-number").click(function() {
+    $("#shirt-preview-area").addClass("big-number-font");
   })
 }
 
@@ -189,14 +245,13 @@ tshirts.set_logo_position = function(place) {
 //
 
 tshirts.apply_canvas_to_tshirt = function() {
-  
+  $("#shirt-preview-area .dataImage").remove();
   html2canvas($("#text_content"), {
     onrendered: function(canvas) {
       //$("#shirt-preview-area").append(canvas);
       // var context = canvas.getContext("2d");
       // context.fillStyle = "red";
       imgData = canvas.toDataURL("image/png");
-      $("#shirt-preview-area .dataImage").remove();
       $("#shirt-preview-area").prepend("<img class='dataImage' src=''>")
       $("#shirt-preview-area img").attr("src", imgData);
       $("#shirt-preview-area").find("span").css( "color", t_color );
@@ -218,7 +273,6 @@ $("documnet").ready(function() {
   if ($("#add_names").prop('checked')) {
     $(".text-edit").removeClass("hidden");
     $("#text_content").append("<span></span>");
-    tshirts.enter_text();
   } else if ($("#add_logo").prop('checked')) {
     $(".add-logo").removeClass("hidden");
     $("#text_content").append("<img src='' />");
@@ -228,7 +282,7 @@ $("documnet").ready(function() {
   }
 
   tshirts.item_select();
-  tshirts.enter_text();
+  //tshirts.enter_text();
   tshirts.change_enter_text();
   tshirts.logo_position_click_event();
   tshirts.change_image_and_text();

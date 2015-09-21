@@ -114,9 +114,16 @@ body {
 }
 
 .shirt-preview {
-  background-image: url("../images/preview_image.gif");
+  /*background-image: url("../images/preview_image.gif");*/
   background-repeat: no-repeat;
   background-position: center center;
+  position: relative;
+}
+
+.shirt-preview > img {
+  position: absolute;
+  top: 28px;
+  left: 32px;
 }
 
 #shirt-preview-area {
@@ -131,11 +138,12 @@ body {
 #shirt-preview-area img {
   height: auto;
   position: relative;
+  transition: all 0.2s;
 }
 
 #shirt-preview-area.pleft img,
 #shirt-preview-area.pright img {
-  top: 60px;
+  top: 75px;
   width: 52px;
 }
 
@@ -145,7 +153,7 @@ body {
 
 #shirt-preview-area.pcenter img {
   width: 85px;
-  top: 75px;
+  top: 90px;
   left: 90px;
 }
 
@@ -153,29 +161,55 @@ body {
   left: 140px;
 }
 
-
-/*sd*/
-
 #shirt-preview-area span {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 125px;
+  top: 115px;
   font-size: 20px;
-  transform: translate(-37%, -180%);
+  transition: all 0.2s;
 }
 
-#shirt-preview-area span.big-font {
-  font-size: 50px;
+#shirt-preview-area.big-number-font span {
+  font-size: 44px;
+  left: 110px;
+  display: block;
 }
 
-#shirt-preview-area.pleft span {}
+#shirt-preview-area.pleft span,
+#shirt-preview-area.pright span {
+  top: 80px;
+}
+
+#shirt-preview-area.pleft span {
+  left: 157px;
+}
 
 #shirt-preview-area.pcenter span {
-  left: 143px;
-  top: 128px;
+  top: 140px;
+  left: 142px;
 }
 
-#shirt-preview-area.pright span {}
+#shirt-preview-area.pright span {
+  left: 92px;
+}
+
+#shirt-preview-area.pleft.big-number-font span,
+#shirt-preview-area.pright.big-number-font span {
+  top: 65px;
+}
+
+#shirt-preview-area.pleft.big-number-font span {
+  left: 143px;
+}
+
+#shirt-preview-area.pcenter.big-number-font span {
+  top: 135px;
+  left: 111px;
+}
+
+#shirt-preview-area.pright.big-number-font span {
+  left: 80px;
+}
 
 
 /*END Adjust canvas position*/
@@ -288,11 +322,22 @@ body {
   height: 280px;
 }
 
-#text_content p {
-  z-index: 999;
+#text_content {
   position: relative;
 }
 
-#shirt-preview-area span {
-  display: none !important;
+#text_content p {
+  position: absolute;
+  margin: 0;
+  font-size: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#text_content p.top-text {
+  top: 0;
+}
+
+#text_content p.bottom-text {
+  top: 0;
 }
