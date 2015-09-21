@@ -334,10 +334,3 @@ body {
   transform: translate(-50%, 0);
 }
 
-#text_content p.top-text {
-  top: 0;
-}
-
-#text_content p.bottom-text {
-  top: 0;
-}

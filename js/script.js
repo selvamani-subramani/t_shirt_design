@@ -15,11 +15,11 @@ tshirts.item_select = function() {
       return false;
     } else {
       var klass = $(".shirt-position .position-selected");
-      if(klass.hasClass("tshirt-image-left")){
+      if (klass.hasClass("tshirt-image-left")) {
         $("#shirt-preview-area").addClass("pleftl");
-      }else if(klass.hasClass("tshirt-image-center")){
+      } else if (klass.hasClass("tshirt-image-center")) {
         $("#shirt-preview-area").addClass("pcenter");
-      }else if(klass.hasClass("tshirt-image-right")){
+      } else if (klass.hasClass("tshirt-image-right")) {
         $("#shirt-preview-area").addClass("pright");
       }
       $("#text-preview-area").removeClass("low-opacity");
@@ -49,9 +49,11 @@ tshirts.item_select = function() {
     } else if (id == "add_decal") {
       tshirts.reset_preview_box();
       set_empyt_box();
+
       $("#text_content").append("<img src='' />");
       $("#text_content").append("<p class='top-text'></p>").append("<p class='bottom-text'></p>");
       $(".text-decimal").removeClass("hidden");
+      tshirts.change_image_and_text();
     }
 
   }
@@ -139,60 +141,67 @@ tshirts.change_image_and_text = function() {
     tshirts.update_image_and_text();
   })
 
-  
-
   tshirts.update_image_and_text()
-  
+
 }
 
 tshirts.update_image_and_text = function() {
+
   var data = $(".text-decimal .image-box img").attr("src");
 
-  $("#text_content img").attr("src" , data);
-  
+  $("#text_content img").attr("src", data).unbind("load").load(function() {;
 
-  $("#text_content").css({
-    "color": t_color,
-    "font-family": t_font
-  }); 
+    $("#text_content").css({
+      "color": t_color,
+      "font-family": t_font
+    });
 
-  var t_position = $(".text-decimal .text-top .text-position").val();
-  var b_position = $(".text-decimal .text-bottom .text-position").val();
+    var t_position = $(".text-decimal .text-top .text-position").val();
+    var b_position = $(".text-decimal .text-bottom .text-position").val();
 
-  var text_height = $("#text_content p.top-text").height()
-  var set_t = 0;
-  var set_b = 0;
-  if(t_position == b_position){
-    if(t_position == "top"){
-      set_t = 0;
-      set_b = text_height + 5 + set_t;
-    }else if(t_position == "middle"){
-      set_t = 30;
-      set_b = text_height + 5 + set_t;
-    }else if(t_position == "bottom"){
-      set_t = 30;
-      set_b = text_height + 5 + set_t;
+    $("#text_content p.top-text").text($("#decalTextA").val());
+    $("#text_content p.bottom-text").text($("#decalTextB").val());
+
+    var text_height = $("#text_content p.top-text").height();
+    var text_content = $("#text_content").height();
+    var middle_height = (text_content / 2) - (text_height / 2);
+    var end_height = text_content - text_height;
+    var set_t = 0;
+    var set_b = 0;
+    if (t_position == b_position) {
+      if (t_position == "top") {
+        set_t = 0;
+        set_b = text_height + 5 + set_t;
+      } else if (t_position == "middle") {
+        set_t = (text_content / 2) - text_height
+        set_b = (text_content / 2)
+      } else if (t_position == "bottom") {
+        set_t = text_content - (text_height * 2)
+        set_b = text_content - text_height
+      }
+    } else {
+      if (t_position == "top") {
+        set_t = 0;
+      } else if (t_position == "middle") {
+        set_t = middle_height
+      } else if (t_position == "bottom") {
+        set_t = end_height
+      }
+
+      if (b_position == "top") {
+        set_b = 0;
+      } else if (b_position == "middle") {
+        set_b = middle_height
+      } else if (b_position == "bottom") {
+        set_b = end_height
+      }
     }
-  }else{
-    if(t_position == "top"){
-      set_t = 0;
-    }else if(t_position == "middle"){
-      set_t = 45;
-    }else if(t_position == "bottom"){
-      set_t = 30;
-    }
-    if(b_position == "top"){
-      set_b = 0;
-    }else if(b_position == "middle"){
-      set_b = 45;
-    }else if(b_position == "bottom"){
-      set_b = 30;
-    }
-  }
-  $("#text_content p.top-text").text($("#decalTextA").val()).css("top", set_t + "px");
-  $("#text_content p.bottom-text").text($("#decalTextB").val()).css("top", set_b + "px");
+    $("#text_content p.top-text").css("top", set_t + "px");
+    $("#text_content p.bottom-text").css("top", set_b + "px");
 
-  tshirts.apply_canvas_to_tshirt();
+    tshirts.apply_canvas_to_tshirt();
+  });
+
 }
 
 //
@@ -203,7 +212,7 @@ tshirts.select_number = function() {
   $("#add_nos_front").click(function() {
     if ($(this).prop('checked')) {
       $(".shirt-position").addClass("add-number");
-      $("#shirt-preview-area").addClass("display-number").append("<span>12</span>").find("span").css( "color", t_color );;
+      $("#shirt-preview-area").addClass("display-number").append("<span>12</span>").find("span").css("color", t_color);;
     } else {
       $(".shirt-position").removeClass("add-number");
       $("#shirt-preview-area").removeClass("display-number").find("span").remove();
@@ -254,7 +263,7 @@ tshirts.apply_canvas_to_tshirt = function() {
       imgData = canvas.toDataURL("image/png");
       $("#shirt-preview-area").prepend("<img class='dataImage' src=''>")
       $("#shirt-preview-area img").attr("src", imgData);
-      $("#shirt-preview-area").find("span").css( "color", t_color );
+      $("#shirt-preview-area").find("span").css("color", t_color);
     }
   });
 }
@@ -266,6 +275,22 @@ tshirts.reset_preview_box = function() {
     "width": preview_width - (i_spacing * 2) + "px",
     "height": preview_height - (i_spacing * 2) + "px"
   });
+}
+
+tshirts.change_image_color = function(myImg) {
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(myImg, 0, 0);
+  var imgd = ctx.getImageData(0, 0, 100, 100);
+  //console.log(imgd)
+  for (i = 0; i < imgd.data.length; i += 4) {
+    imgd.data[i] = 255;
+    imgd.data[i + 1] = 0;
+    imgd.data[i + 2] = 255;
+  }
+  ctx.putImageData(imgd, 0, 0);
+  myImg.src = canvas.toDataURL("image/png")
+  return myImg
 }
 
 $("documnet").ready(function() {
@@ -282,7 +307,7 @@ $("documnet").ready(function() {
   }
 
   tshirts.item_select();
-  //tshirts.enter_text();
+  tshirts.enter_text();
   tshirts.change_enter_text();
   tshirts.logo_position_click_event();
   tshirts.change_image_and_text();
