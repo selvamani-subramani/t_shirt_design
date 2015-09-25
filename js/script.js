@@ -293,6 +293,13 @@ tshirts.change_image_color = function(myImg) {
   return myImg
 }
 
+tshirts.ajax_load_images = function() {
+  $(".text-decimal .image-box").click(function(){
+    $(".text-decimal .load-images").toggleClass("hidden")
+  })
+}
+
+
 $("documnet").ready(function() {
 
   if ($("#add_names").prop('checked')) {
@@ -312,6 +319,21 @@ $("documnet").ready(function() {
   tshirts.logo_position_click_event();
   tshirts.change_image_and_text();
   tshirts.select_number();
+  tshirts.ajax_load_images();
 
+
+
+  $("#generate-image").click(function() {
+    html2canvas($("#shirt-preview-area")).then(function(canvas) {
+      //var context = canvas.getContext("2d");
+      var img = $(".shirt-preview > img")[0];
+      var can3 = $("#update_logo")[0];
+      can3.width = 250;
+      can3.height = 280;
+      var ctx3 = can3.getContext('2d');
+      ctx3.drawImage(img, 25, 0);
+      ctx3.drawImage(canvas, 0, 0);
+    });
+  })
 
 })

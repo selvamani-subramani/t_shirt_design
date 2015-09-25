@@ -211,6 +211,21 @@ body {
   left: 80px;
 }
 
+.text-decimal {
+  position: relative;
+  overflow: visible;
+}
+
+.text-decimal .load-images {
+  position: absolute;
+  top: -4px;
+  right: -230px;
+  width: 220px;
+  height: 200px;
+  z-index: 1000;
+  border: 1px solid #aaa;
+}
+
 
 /*END Adjust canvas position*/
 
@@ -226,6 +241,7 @@ body {
   width: 70px;
   height: 70px;
   border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .shirt-position > div {
@@ -333,4 +349,3 @@ body {
   left: 50%;
   transform: translate(-50%, 0);
 }
-
