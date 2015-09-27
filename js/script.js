@@ -410,7 +410,7 @@ tshirts.back_set_design = function() {
 }
 
 tshirts.add_new_palyer = function() {
-  $(".no-of-tshirt select option").off("click").on("click",function() {
+  $(".no-of-tshirt select").change(function() {
     var p_count = $(this).val();
     var preset_p_count = $("#tblSizes tbody tr").length;
     if(preset_p_count > p_count){
