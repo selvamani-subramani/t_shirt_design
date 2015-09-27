@@ -23,20 +23,78 @@ body {
 }
 
 .box-design {
-  background: #1e2427 none repeat scroll 0 0;
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #1e2427 0px, #0d0f11 25px, #0a0c0e 100px) repeat scroll 0 0;
+  border-radius: 4px 4px 0 0;
+  border-top: 1px solid #33383b;
   overflow: hidden;
   padding: 10px;
   margin-top: 10px;
 }
 
-.select-design > div {
+.btn_medium {
+  height: 30px;
+  line-height: 30px;
+}
+
+.btn_black {
+  -moz-user-select: none;
+  background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #222d31, #0e0e0e) repeat scroll 0 0;
+  border: 1px solid #454645;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Lucida Grande", "Lucidas", Tahoma, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  height: 35px;
+  line-height: 35px;
+  outline: medium none;
+  padding: 0 30px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #000000;
+}
+
+.btn_black:hover {
+  background-color: #1b2427;
+  background-image: linear-gradient(to bottom, #2d373b, #101010);
+  border: 1px solid #4a4b4a;
+}
+
+.btn_orange {
+  -moz-user-select: none;
+  background: #faec2e linear-gradient(to bottom, #ffec64 5%, #ffab23 100%) repeat scroll 0 0;
+  border: 1px solid #ffaa22;
+  border-radius: 4px;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Lucida Grande", "Lucidas", Tahoma, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  height: 35px;
+  line-height: 35px;
+  outline: medium none;
+  padding: 0 30px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #ffee66;
+}
+
+.btn_orange:hover {
+  background: #ffab23 linear-gradient(to bottom, #ffab23 5%, #ffec64 100%) repeat scroll 0 0;
+}
+
+.select-design > div,
+.back-select-option > div {
   width: 50%;
   float: left;
   color: #fff;
 }
 
-.select-design > div span {
+.select-design > div span,
+.back-select-option > div span {
   margin-left: 20px;
   color: #989898;
   padding-top: 5px;
@@ -59,7 +117,8 @@ body {
 .text-edit,
 .add-logo,
 .text-decimal,
-.text-preview {
+.text-preview,
+.select-back-style {
   width: 440px;
   float: left;
 }
@@ -100,7 +159,8 @@ body {
 }
 
 .shirt-position,
-.shirt-preview {
+.shirt-preview,
+.back-shirt-position {
   display: inline-block;
   margin-left: 10px;
   width: 257px;
@@ -164,7 +224,7 @@ body {
 #shirt-preview-area span {
   position: absolute;
   left: 125px;
-  top: 115px;
+  top: 100px;
   font-size: 20px;
   transition: all 0.2s;
 }
@@ -226,6 +286,14 @@ body {
   border: 1px solid #aaa;
 }
 
+.text-decimal .load-images.box-design > img {
+  float: left;
+  height: 58px;
+  margin: 6px 2px 4px;
+  width: auto;
+  cursor: pointer;
+}
+
 
 /*END Adjust canvas position*/
 
@@ -244,12 +312,14 @@ body {
   cursor: pointer;
 }
 
-.shirt-position > div {
+.shirt-position > div,
+.back-shirt-position > div {
   display: inline-block;
   margin-right: 5px;
 }
 
-.shirt-position > div:not(.display-number) {
+.shirt-position > div:not(.display-number),
+.back-shirt-position > div {
   cursor: pointer;
 }
 
@@ -273,10 +343,10 @@ body {
 }
 
 .shirt-position img {
-  margin-right: 2px;
+  margin-left: 8px;
+  margin-right: 8px;
   margin-top: 10px;
-  margin-left: 2px;
-  height: 76px;
+  height: 70px;
   max-width: 100%;
 }
 
@@ -284,7 +354,8 @@ body {
   height: 56px;
 }
 
-.shirt-position.add-number > div {
+.shirt-position.add-number > div,
+.back-shirt-position > div {
   display: inline-block;
 }
 
@@ -295,11 +366,15 @@ body {
 
 .shirt-position .tshirt-image-left,
 .shirt-position .tshirt-image-center,
-.shirt-position .tshirt-image-right {
+.shirt-position .tshirt-image-right,
+.back-shirt-position .layout_curved,
+.back-shirt-position .layout_straight_bottom,
+.back-shirt-position .layout_straight_top {
   opacity: 0.5;
 }
 
-.shirt-position > div.position-selected {
+.shirt-position > div.position-selected,
+.back-shirt-position > div.position-selected {
   opacity: 1;
 }
 
@@ -340,6 +415,7 @@ body {
 
 #text_content {
   position: relative;
+  height: 100%;
 }
 
 #text_content p {
@@ -348,4 +424,88 @@ body {
   font-size: 50px;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+
+/*Back page design start*/
+
+.no-of-tshirt {
+  color: #fff;
+}
+
+.no-of-tshirt span {
+  margin-right: 16px;
+}
+
+#tblSizes .text_inputboxes {
+  width: 220px;
+}
+
+#tblSizes .numper_inputboxes {
+  width: 25px;
+}
+
+.back-text-edit {
+  color: #fff;
+}
+
+.select-back-style {
+  height: 100px;
+}
+
+.select-back-style h4 {
+  margin: 0;
+}
+
+.back-preview .text-preview {
+  height: 450px;
+}
+
+.back-preview .text-preview #text_content h2,
+.back-preview .text-preview #text_content h3 {
+  margin: 0;
+}
+
+.back-preview .text-preview #text_content h3 {
+  position: absolute;
+  top: 30px;
+  font-size: 38px;
+  text-align: center;
+  width: 100%;
+}
+
+.back-preview .text-preview #text_content h2 {
+  position: absolute;
+  top: 78px;
+  text-align: center;
+  font-size: 274px;
+  line-height: 255px;
+  width: 100%;
+}
+
+.back-preview .text-preview #text_content.name-bottom h3 {
+  top: 260px;
+}
+
+.back-preview .text-preview #text_content.name-bottom h2 {
+  top: 10px;
+}
+
+.back-preview .text-preview #text_content span {
+  position: absolute;
+  top: 344px;
+  text-align: center;
+  font-size: 25px;
+  width: 100%;
+}
+
+.back-preview #shirt-preview-area.pcenter img {
+  width: 127px;
+  top: 52px;
+  left: 66px;
+}
+
+.back-input-text .option-buttons {
+  margin-top: 10px;
+  padding-left: 30px;
 }

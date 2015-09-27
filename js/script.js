@@ -4,6 +4,27 @@ var t_font = "sans-serif";
 var preview_width = 440;
 var preview_height = 280;
 var tshirt_logo_position = "tshirt-image-center";
+var typingTimer; //timer identifier
+var doneTypingInterval = 1200; //time in ms, 1.2 second for example
+var players_count = 0;
+
+function hexToRgb(hex) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+
+
 // Top Item select
 tshirts.item_select = function() {
   $(".select-design").find("input").not("#add_nos_front").change(function(event) {
@@ -69,8 +90,12 @@ tshirts.change_enter_text = function() {
     tshirts.enter_text();
   })
   $(".text-edit textarea").on('keyup', function() {
-    tshirts.enter_text();
+    clearTimeout(typingTimer);
+    if ($(this).val) {
+      typingTimer = setTimeout(tshirts.enter_text, doneTypingInterval);
+    }
   })
+
   $(".text-edit .color-icons li").on('click', function() {
     t_color = "#" + $(this).text();
     tshirts.enter_text();
@@ -103,9 +128,13 @@ tshirts.enter_text = function() {
 tshirts.change_image = function() {
   tshirts.update_image($('#fileupload')[0])
   $('#fileupload').change(function() {
-    console.log(this)
     tshirts.update_image(this)
   })
+  $(".add-logo .color-icons li").on('click', function() {
+    t_color = "#" + $(this).text();
+    tshirts.change_image_color($("#text_content img")[0])
+    tshirts.apply_canvas_to_tshirt();
+  });
 }
 
 tshirts.update_image = function(input) {
@@ -115,6 +144,7 @@ tshirts.update_image = function(input) {
 
     reader.onload = function(e) {
       $("#text_content img").attr("src", e.target.result);
+      // tshirts.change_image_color($("#text_content img")[0]);
       tshirts.apply_canvas_to_tshirt();
     }
     reader.readAsDataURL(input.files[0]);
@@ -125,6 +155,7 @@ tshirts.update_image = function(input) {
 
 //Option 3 Edit setting
 tshirts.change_image_and_text = function() {
+  //setup before functions
 
   $(".text-decimal select").on('change', function() {
     if ($(this).hasClass("display-fonts")) {
@@ -135,14 +166,32 @@ tshirts.change_image_and_text = function() {
 
   $(".text-decimal .color-icons li").on('click', function() {
     t_color = "#" + $(this).text();
-    tshirts.update_image_and_text();
-  })
-  $("#decalTextA, #decalTextB").on('keyup', function() {
-    tshirts.update_image_and_text();
+    tshirts.change_image_color($("#text_content img")[0])
   })
 
-  tshirts.update_image_and_text()
+  $("#decalTextA, #decalTextB").keyup(function() {
+    clearTimeout(typingTimer);
+    if ($(this).val) {
+      typingTimer = setTimeout(tshirts.update_image_and_text, doneTypingInterval);
+    }
+  });
 
+  tshirts.ajax_load_images();
+  tshirts.update_image_and_text();
+
+}
+
+
+tshirts.ajax_load_images = function() {
+  $(".text-decimal .image-box").off("click").on("click", function() {
+    $(".text-decimal .load-images").toggleClass("hidden")
+  })
+  $(".text-decimal .load-images").off("click").on("click", "img", function() {
+    image_data = $(this).attr("src");
+    $(".text-decimal .image-box img").attr("src", image_data);
+    $(".text-decimal .load-images").toggleClass("hidden");
+    tshirts.update_image_and_text();
+  })
 }
 
 tshirts.update_image_and_text = function() {
@@ -196,6 +245,21 @@ tshirts.update_image_and_text = function() {
         set_b = end_height
       }
     }
+
+    $("#text_content p.top-text, #text_content p.bottom-text").removeAttr("style");
+
+    var top_bottom = $(".text-decimal .text-top .test-design").val();
+    var rotate_top_value = tshirts.rotate_text(top_bottom, "top");
+    var bottom_bottom = $(".text-decimal .text-bottom .test-design").val();
+    var rotate_bottom_value = tshirts.rotate_text(bottom_bottom, "bottom");
+
+    if (rotate_top_value != false) {
+      $("#text_content p.top-text").css("transform", rotate_top_value);
+    }
+    if (rotate_bottom_value != false) {
+      $("#text_content p.bottom-text").css("transform", rotate_bottom_value);
+    }
+
     $("#text_content p.top-text").css("top", set_t + "px");
     $("#text_content p.bottom-text").css("top", set_b + "px");
 
@@ -203,6 +267,25 @@ tshirts.update_image_and_text = function() {
   });
 
 }
+
+tshirts.rotate_text = function(line, pos) {
+  if (pos == "top") {
+    width = $("#text_content .top-text").width();
+    height = $("#text_content .top-text").height();
+  } else if (pos == "bottom") {
+    width = $("#text_content .bottom-text").width();
+    height = $("#text_content .top-text").height();
+  }
+
+  if (line == "line1") {
+    return false
+  } else if (line == "line2") {
+    return "matrix(1, 0.4, -0.4, 1, -" + (width / 2) + ", 5)";
+  } else if (line == "line3") {
+    return "matrix(1, -0.4, 0.4, 1, -" + (width / 2) + ", 5)";
+  }
+}
+
 
 //
 
@@ -277,49 +360,188 @@ tshirts.reset_preview_box = function() {
   });
 }
 
-tshirts.change_image_color = function(myImg) {
-  var canvas = document.createElement("canvas");
-  var ctx = canvas.getContext("2d");
-  ctx.drawImage(myImg, 0, 0);
-  var imgd = ctx.getImageData(0, 0, 100, 100);
-  //console.log(imgd)
-  for (i = 0; i < imgd.data.length; i += 4) {
-    imgd.data[i] = 255;
-    imgd.data[i + 1] = 0;
-    imgd.data[i + 2] = 255;
-  }
-  ctx.putImageData(imgd, 0, 0);
-  myImg.src = canvas.toDataURL("image/png")
-  return myImg
-}
-
-tshirts.ajax_load_images = function() {
-  $(".text-decimal .image-box").click(function(){
-    $(".text-decimal .load-images").toggleClass("hidden")
+tshirts.back_text_display_rule = function() {
+  $("#add_back_name").change(function(event) {
+    $("#text_content h3").toggleClass("hidden");
+    tshirts.apply_canvas_to_tshirt();
+  })
+  $("#add_number").change(function(event) {
+    $("#text_content h2").toggleClass("hidden");
+    tshirts.apply_canvas_to_tshirt();
+  })
+  $("#add_com_text").change(function(event) {
+    $("#text_content span").toggleClass("hidden");
+    tshirts.apply_canvas_to_tshirt();
   })
 }
 
+tshirts.back_set_style = function() {
+  $(".select-back-style .display-fonts").change(function() {
+    t_font = $(this).val();
+    // $("#tblSizes tbody tr.selected .text_font").val(t_font);
+    tshirts.back_set_design();
+  });
+  $(".select-back-style .color-icons li").on('click', function() {
+    t_color = "#" + $(this).text();
+    // $("#tblSizes tbody tr.selected .text_color").val($(this).text());
+    tshirts.back_set_design();
+  })
+}
+
+tshirts.back_name_position = function() {
+  $(".back-shirt-position .layout_curved, .back-shirt-position .layout_straight_top").click(function() {
+    $(".back-shirt-position .position-selected").removeClass("position-selected");
+    $(this).addClass("position-selected");
+    $("#text_content").removeClass("name-bottom");
+    tshirts.apply_canvas_to_tshirt();
+  })
+  $(".back-shirt-position .layout_straight_bottom").click(function() {
+    $(".back-shirt-position .position-selected").removeClass("position-selected");
+    $(this).addClass("position-selected");
+    $("#text_content").addClass("name-bottom");
+    tshirts.apply_canvas_to_tshirt();
+  })
+}
+
+tshirts.back_set_design = function() {
+  $("#text_content").css("font-family", t_font);
+  $("#text_content").css("color", t_color);
+  tshirts.apply_canvas_to_tshirt();
+}
+
+tshirts.add_new_palyer = function() {
+  $(".no-of-tshirt select option").off("click").on("click",function() {
+    var p_count = $(this).val();
+    var preset_p_count = $("#tblSizes tbody tr").length;
+    if(preset_p_count > p_count){
+      alert("Please remove user by clicking the delete button");
+    }else{
+      var i = p_count - preset_p_count;
+      for (c = 0; c < i; c++) {
+        tshirts.create_new_player()
+      }
+    }
+  })
+  $("#AddUsers").click(function() {
+    tshirts.create_new_player();
+  })
+}
+
+tshirts.create_new_player = function() {
+  players_count = players_count + 1;
+  var obj = $("tr#shirtrow_1").clone(true);
+  obj.removeClass("selected").attr("id", "shirtrow_" + players_count).find("td:nth-child(1)").html(players_count)
+  obj.find("td:nth-child(2) select").attr({
+    name: "shirt_" + players_count + "_size",
+    id: "shirtSize_" + players_count
+  });
+  obj.find("td:nth-child(3) input").attr({
+    name: "shirt_" + players_count + "_back_text",
+    id: "BackText_s_" + players_count
+  }).val("YOUR NAME");
+  obj.find("td:nth-child(4) input").attr({
+    name: "shirt_" + players_count + "_number",
+    id: "BackNo_s_" + players_count
+  }).val("15");
+  obj.find("td:nth-child(5)").append("<a href='#'>Remove</a>");
+  $("#tblSizes tbody").append(obj)
+  tshirts.back_select_row();
+}
+
+tshirts.find_back_focus_event = function() {
+  $("#tblSizes tbody tr.selected input").on('keyup', function() {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(tshirts.update_back_tshirt_text, doneTypingInterval);
+  })
+}
+
+tshirts.update_back_tshirt_text = function() {
+  var b_name = $("#tblSizes tbody tr.selected").find("td:nth-child(3) input").val();
+  var b_number = $("#tblSizes tbody tr.selected").find("td:nth-child(4) input").val();
+  $("#text_content").find("h3").text(b_name);
+  $("#text_content").find("h2").text(b_number);
+  tshirts.apply_canvas_to_tshirt();
+}
+
+tshirts.back_select_row = function() {
+
+  $("#tblSizes tbody tr select, #tblSizes tbody tr input").off("focus").on("focus", function() {
+    $("#tblSizes tbody tr.selected").removeClass("selected");
+    $(this).parents("tr").addClass("selected");
+    tshirts.find_back_focus_event();
+    tshirts.update_back_tshirt_text();
+  })
+  $("#tblSizes tbody tr td.remove a").off("click").on("click", function() {
+    // players_count = players_count - 1;
+    $(this).parents("tr").remove();
+  })
+}
+
+tshirts.change_image_color = function(myImg) {
+  var canvas = document.createElement("canvas");
+  canvas.width = myImg.naturalWidth
+  canvas.height = myImg.naturalHeight
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(myImg, 0, 0);
+  var imgd = ctx.getImageData(0, 0, myImg.naturalWidth, myImg.naturalHeight);
+  rgb_color = hexToRgb(t_color);
+  for (i = 0; i < imgd.data.length; i += 4) {
+    imgd.data[i] = rgb_color.r;
+    imgd.data[i + 1] = rgb_color.g;
+    imgd.data[i + 2] = rgb_color.b;
+  }
+  ctx.putImageData(imgd, 0, 0);
+  myImg.src = canvas.toDataURL("image/png");
+}
 
 $("documnet").ready(function() {
 
-  if ($("#add_names").prop('checked')) {
-    $(".text-edit").removeClass("hidden");
-    $("#text_content").append("<span></span>");
-  } else if ($("#add_logo").prop('checked')) {
-    $(".add-logo").removeClass("hidden");
-    $("#text_content").append("<img src='' />");
-  } else if ($("#add_decal").prop('checked')) {
-    $(".text-decimal").removeClass("hidden");
-    $("#text_content").append("<img src='' />").append("<p class='top-text'></p>").append("<p class='bottom-text'></p>");
+  // if ($("#text_content").data("color")) {
+  //   t_color = $("#text_content").data("color");
+  // }
+
+  if (!$("body .container").hasClass("back-preview")) {
+    if ($("#add_names").prop('checked')) {
+      $(".text-edit").removeClass("hidden");
+      $("#text_content").append("<span></span>");
+    } else if ($("#add_logo").prop('checked')) {
+      $(".add-logo").removeClass("hidden");
+      $("#text_content").append("<img src='' />");
+    } else if ($("#add_decal").prop('checked')) {
+      $(".text-decimal").removeClass("hidden");
+      $("#text_content").append("<img src='' />").append("<p class='top-text'></p>").append("<p class='bottom-text'></p>");
+    }
+
+    tshirts.item_select();
+    if ($("#add_names").prop('checked')) {
+      tshirts.enter_text();
+    }
+    tshirts.change_enter_text();
+    tshirts.logo_position_click_event();
+    tshirts.change_image_and_text();
+    tshirts.select_number();
+  } else {
+
+    if (!$("#add_back_name").prop('checked')) {
+      $(".back-preview .text-preview #text_content h3").addClass("hidden");
+    } else if (!$("#add_number").prop('checked')) {
+      $(".back-preview .text-preview #text_content h2").addClass("hidden");
+    } else if (!$("#add_com_text").prop('checked')) {
+      $(".back-preview .text-preview #text_content span").addClass("hidden");
+    }
+    players_count = $("#tblSizes tbody tr").length;
+    t_font = $("#tblSizes tbody tr.selected .text_font").val();
+    t_color = "#" + $("#tblSizes tbody tr.selected .text_color").val();
+
+
+    tshirts.back_text_display_rule();
+    tshirts.back_set_style();
+    tshirts.back_name_position();
+    tshirts.add_new_palyer();
+    tshirts.back_set_design();
+    tshirts.back_select_row();
   }
 
-  tshirts.item_select();
-  tshirts.enter_text();
-  tshirts.change_enter_text();
-  tshirts.logo_position_click_event();
-  tshirts.change_image_and_text();
-  tshirts.select_number();
-  tshirts.ajax_load_images();
 
 
 

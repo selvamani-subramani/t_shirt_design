@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>T-Shirt design</title>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/html2canvas.js"></script>
+  <script type="text/javascript" src="js/jquery-bigtext.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+  <link type="text/css" rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <button id="generate-image" style="position:fixed;top:0;right:0;"> Get Image</button>
+  <a href="index.html"> Front Page</a>
+  <div class="container back-preview">
+    <div class="no-of-tshirt box-design">
+      <span>Select number of shirt</span>
+      <select>
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+    </div>
+    <div class="back-select-option box-design">
+      <div class="option1">
+        <label>
+          <input type="checkbox" name="add_back_name" id="add_back_name" checked> Add names/text to back of shirts
+          <span>$4.45 per shirt</span>
+        </label>
+      </div>
+      <div class="option2">
+        <label>
+          <input type="checkbox" name="add_com_text" id="add_com_text" checked> Add madcore.com sponsorship
+          <span>5% discount on shirt price!</span>
+        </label>
+      </div>
+      <div class="option3">
+        <label>
+          <input type="checkbox" name="add_number" id="add_number" checked> Add numbers to back of shirts
+          <span>$4.95 per shirt</span>
+        </label>
+      </div>
+    </div>
+    <div class="back-text-edit box-design">
+      <h3>Shirt Size & Name/Number for Each Player</h3>
+      <div class="back-input-text">
+        <table cellspacing="0" cellpadding="2" border="0" id="tblSizes">
+          <thead>
+            <tr>
+              <th width="20"></th>
+              <th>Shirt Size</th>
+              <th>Name/Text on Back</th>
+              <th align="center">Number</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="shirtrow_1" class="shirtsizegridrow selected">
+              <td style="height: 32px;">1</td>
+              <td style=" width:100px;">
+                <select name="shirt_1_size" id="shirtSize_1" style="width:160px;">
+                  <option value="NO_SIZE">Select Size</option>
+                  <option value="Youth S">Youth S (15 1/8 in.)</option>
+                  <option value="Youth M">Youth M (17 1/8 in.)</option>
+                  <option value="Youth L/Womens S">Youth L/Womens S (19 1/8 in.)</option>
+                  <option value="Mens S/Womens M">Mens S/Womens M (18 7/8 in.)</option>
+                  <option value="Mens M/Womens L">Mens M/Womens L (20 7/8 in.)</option>
+                  <option value="Mens L/Womens XL">Mens L/Womens XL (22 7/8 in.)</option>
+                  <option value="Mens XL/Womens 2XL">Mens XL/Womens 2XL (24 7/8 in.)</option>
+                  <option value="Mens 2XL">Mens 2XL (26 7/8 in.)</option>
+                  <option value="Mens 3XL">Mens 3XL (28 7/8 in.)</option>
+                </select>
+              </td>
+              <td style="width:250px;">
+                <input type="textbox" name="shirt_1_back_text" value="YOUR NAME" id="BackText_s_1" maxlength="20" class="text_inputboxes">
+              </td>
+              <td>
+                <input type="textbox" name="shirt_1_number" id="BackNo_s_1" value="15" maxlength="2" class="numper_inputboxes">
+              </td>
+              <td class="remove" align="center"></td>
+              <td>
+                <!-- <input type="hidden" name="shirt_1_color" id="shirt_1_color" value="00ff00" class="text_color">
+                <input type="hidden" name="shirt_1_font" id="shirt_1_font" value="Arial Black" class="text_font">
+                <input type="hidden" name="shirt_1_design" id="shirt_1_design" value="curve" class="name_design"> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="option-buttons">
+          <div class="btn_black btn_medium" id="btnSizeGuide">Size Guide</div>
+          <div class="btn_orange btn_medium" id="AddUsers">Add Player</div>
+        </div>
+      </div>
+    </div>
+    <div class="select-back-style box-design">
+      <h3>Back Text Font and Color </h3>
+      <label>Font</label>
+      <select class="display-fonts">
+        <option>Arial Black</option>
+        <option>sans-serif</option>
+        <option>Lucida Sans</option>
+        <option>Snap ITC</option>
+        <option>Times New Roman</option>
+      </select>
+      <h4>Color</h4>
+      <div class="color-icons">
+        <ul>
+          <li style="background-color :#ffffff;">ffffff</li>
+          <li style="background-color :#858585;">858585</li>
+          <li style="background-color :#0000CA;">0000CA</li>
+          <li style="background-color :#000063;">000063</li>
+          <li style="background-color :#610061;">610061</li>
+          <li style="background-color :#BF6C7A;">BF6C7A</li>
+          <li style="background-color :#004D00;">004D00</li>
+          <li style="background-color :#CACA00;">CACA00</li>
+          <li style="background-color :#006300;">006300</li>
+          <li style="background-color :#CA0000;">CA0000</li>
+          <li style="background-color :#BE8718;">BE8718</li>
+          <li style="background-color :#004D00;">004D00</li>
+          <li style="background-color :#004D5C;">004D5C</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Tshirt set position -->
+    <div class="back-shirt-position box-design">
+      <h3>Position</h3>
+      <div class="layout_curved position-selected">
+        <img src="images/layout_curved.gif" alt="left-position">
+      </div>
+      <div class="layout_straight_bottom">
+        <img src="images/layout_straight_bottom.gif" alt="left-position">
+      </div>
+      <div class="layout_straight_top">
+        <img src="images/layout_straight_top.gif" alt="left-position">
+      </div>
+    </div>
+    <!-- Tshirt Preview area -->
+    <div class="text-preview box-design">
+      <h3>Text Preview</h3>
+      <div id="text-preview-area">
+        <div data-color="#cdcdcd" id="text_content">
+          <h3>Your Name</h3>
+          <h2>15</h2>
+          <span class="hiddens">madcore.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="shirt-preview box-design">
+      <h3>Image Preview</h3>
+      <img src="images/preview_image.gif">
+      <div id="shirt-preview-area" class="pcenter">
+      </div>
+    </div>
+  </div>
+  <div id="hq-tshirt-image" class="hidden">
+    <img src="images/worn2.jpg">
+  </div>
+  <canvas width="500" height="280" id="update_logo"></canvas>
+  <img src="" id="upload_image">
+</body>
+
+</html>
