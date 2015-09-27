@@ -471,9 +471,10 @@ tshirts.back_select_row = function() {
     tshirts.find_back_focus_event();
     tshirts.update_back_tshirt_text();
   })
-  $("#tblSizes tbody tr td.remove a").off("click").on("click", function() {
+  $("#tblSizes tbody tr td.remove a").off("click").on("click", function(e) {
     // players_count = players_count - 1;
     $(this).parents("tr").remove();
+    e.preventDefault();
   })
 }
 
