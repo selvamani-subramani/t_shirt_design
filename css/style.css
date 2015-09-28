@@ -352,6 +352,8 @@ body {
 
 .shirt-position.add-number img {
   height: 56px;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .shirt-position.add-number > div,
