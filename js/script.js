@@ -64,13 +64,15 @@ tshirts.item_select = function() {
     } else if (id == "add_logo") {
       tshirts.reset_preview_box();
       set_empyt_box();
+      if ($('#fileupload').val() == "") {
+        $("#shirt-preview-area .dataImage").remove();
+      }
       $("#text_content").append("<img src='' />")
       $(".add-logo").removeClass("hidden");
       tshirts.change_image();
     } else if (id == "add_decal") {
       tshirts.reset_preview_box();
       set_empyt_box();
-
       $("#text_content").append("<img src='' />");
       $("#text_content").append("<p class='top-text'></p>").append("<p class='bottom-text'></p>");
       $(".text-decimal").removeClass("hidden");
@@ -106,7 +108,13 @@ tshirts.enter_text = function() {
 
   var t_align = $("#fontp").val();
   var t_spacing = $("#fonti").val();
-  $("#text_content span").text("");
+  txt_span = $("#text_content span")
+
+  if (txt_span.hasClass("text-set-position")) {
+    txt_span.removeClass("text-set-position");
+  }
+
+  txt_span.text("");
   $("#text_content").css({
     "color": t_color,
     "font-family": t_font,
@@ -114,12 +122,17 @@ tshirts.enter_text = function() {
     "width": preview_width - (t_spacing * 2) + "px",
     "height": preview_height - (t_spacing * 2) + "px"
   });
-  
+
 
   multi_text = encodeURI($(".text-edit textarea").val()).replace(/%0A/g, "</br>");
   $("#text_content span").html(decodeURI(multi_text)).bigText({
     textAlign: t_align
   });
+
+  if (txt_span.width() < txt_span.parent().width()) {
+    txt_span.addClass("text-set-position");
+  }
+
   tshirts.apply_canvas_to_tshirt();
 }
 
@@ -128,10 +141,10 @@ tshirts.enter_text = function() {
 //Option 2 Edit setting
 tshirts.change_image = function() {
   tshirts.update_image($('#fileupload')[0])
-  $('#fileupload').change(function() {
+  $('#fileupload').off("change").on('change', function() {
     tshirts.update_image(this)
   })
-  $(".add-logo .color-icons li").on('click', function() {
+  $(".add-logo .color-icons li").off("click").on('click', function() {
     t_color = "#" + $(this).text();
     tshirts.change_image_color($("#text_content img")[0])
     tshirts.apply_canvas_to_tshirt();
@@ -179,7 +192,7 @@ tshirts.change_image_and_text = function() {
 
   tshirts.ajax_load_images();
   tshirts.update_image_and_text();
-  
+
 }
 
 
@@ -271,13 +284,16 @@ tshirts.update_image_and_text = function() {
 }
 
 tshirts.rotate_text = function(line, pos) {
+  t_selector = ""
   if (pos == "top") {
-    width = $("#text_content .top-text").width();
-    height = $("#text_content .top-text").height();
+    t_selector = $("#text_content .top-text");
   } else if (pos == "bottom") {
-    width = $("#text_content .bottom-text").width();
-    height = $("#text_content .top-text").height();
+    t_selector = $("#text_content .bottom-text")
   }
+
+  width = t_selector.width();
+  height = t_selector.height();
+  tshirts.text_curve_destory(t_selector, false);
 
   if (line == "line1") {
     return false
@@ -285,7 +301,12 @@ tshirts.rotate_text = function(line, pos) {
     return "matrix(1, 0.4, -0.4, 1, -" + (width / 2) + ", 5)";
   } else if (line == "line3") {
     return "matrix(1, -0.4, 0.4, 1, -" + (width / 2) + ", 5)";
+  } else if (line == "line4") {
+    tshirts.text_curve_top(t_selector, false);
+  } else if (line == "line5") {
+    tshirts.text_curve_bottom(t_selector, false);
   }
+
 }
 
 
@@ -396,16 +417,25 @@ tshirts.back_set_style = function() {
 }
 
 tshirts.back_name_position = function() {
+  if ($(".back-shirt-position .layout_curved").hasClass("position-selected")) {
+    tshirts.text_curve_top($("#text_content h3"), false);
+  }
   $(".back-shirt-position .layout_curved, .back-shirt-position .layout_straight_top").click(function() {
     $(".back-shirt-position .position-selected").removeClass("position-selected");
     $(this).addClass("position-selected");
     $("#text_content").removeClass("name-bottom");
+    if ($(".back-shirt-position .layout_curved").hasClass("position-selected")) {
+      tshirts.text_curve_top($("#text_content h3"), false);
+    } else {
+      tshirts.text_curve_destory($("#text_content h3"), false);
+    }
     tshirts.apply_canvas_to_tshirt();
   })
   $(".back-shirt-position .layout_straight_bottom").click(function() {
     $(".back-shirt-position .position-selected").removeClass("position-selected");
     $(this).addClass("position-selected");
     $("#text_content").addClass("name-bottom");
+    tshirts.text_curve_destory($("#text_content h3"), false);
     tshirts.apply_canvas_to_tshirt();
   })
 }
@@ -421,9 +451,9 @@ tshirts.add_new_palyer = function() {
   $(".no-of-tshirt select").change(function() {
     var p_count = $(this).val();
     var preset_p_count = $("#tblSizes tbody tr").length;
-    if(preset_p_count > p_count){
+    if (preset_p_count > p_count) {
       alert("Please remove user by clicking the delete button");
-    }else{
+    } else {
       var i = p_count - preset_p_count;
       for (c = 0; c < i; c++) {
         tshirts.create_new_player()
@@ -437,8 +467,9 @@ tshirts.add_new_palyer = function() {
 
 tshirts.create_new_player = function() {
   players_count = players_count + 1;
+  c_number = $("#tblSizes tbody tr").length + 1;
   var obj = $("#tblSizes tbody tr:first").clone(true);
-  obj.removeClass("selected").attr("id", "shirtrow_" + players_count).find("td:nth-child(1)").html(players_count)
+  obj.removeClass("selected").attr("id", "shirtrow_" + players_count).find("td:nth-child(1)").html(c_number)
   obj.find("td:nth-child(2) select").attr({
     name: "shirt_" + players_count + "_size",
     id: "shirtSize_" + players_count
@@ -481,9 +512,45 @@ tshirts.back_select_row = function() {
   })
   $("#tblSizes tbody tr td.remove a").off("click").on("click", function(e) {
     // players_count = players_count - 1;
+    $(this).parents("tr").nextAll().each(function(i,selector){
+      txt = $(selector).find('td:first').text();
+      $(selector).find('td:first').text(txt - 1)
+    })
     $(this).parents("tr").remove();
     e.preventDefault();
   })
+}
+
+tshirts.text_curve_top = function(selector, execute) {
+  execute = typeof execute !== 'undefined' ? execute : true;
+  selector.arctext({
+    radius: 200,
+    dir: 1
+  });
+  if (execute) {
+    tshirts.apply_canvas_to_tshirt();
+  }
+}
+
+tshirts.text_curve_bottom = function(selector, execute) {
+  execute = typeof execute !== 'undefined' ? execute : true;
+  selector.arctext({
+    radius: 200,
+    dir: -1
+  });
+  if (execute) {
+    tshirts.apply_canvas_to_tshirt();
+  }
+}
+
+tshirts.text_curve_destory = function(selector, execute) {
+  execute = typeof execute !== 'undefined' ? execute : true;
+  if (selector.data('arctext')) {
+    selector.arctext('destroy');
+  }
+  if (execute) {
+    tshirts.apply_canvas_to_tshirt();
+  }
 }
 
 tshirts.change_image_color = function(myImg) {
