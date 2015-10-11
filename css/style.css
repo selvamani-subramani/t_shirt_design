@@ -415,6 +415,12 @@ body {
   height: 280px;
 }
 
+#text_content > span.text-set-position {
+  width: 100% !important;
+  margin-left: 0 !important;
+  left: 0 !important;
+}
+
 #text_content {
   position: relative;
   height: 100%;
@@ -426,6 +432,8 @@ body {
   font-size: 50px;
   left: 50%;
   transform: translate(-50%, 0);
+  width: 100%;
+  text-align: center;
 }
 
 
@@ -493,7 +501,7 @@ body {
   top: 10px;
 }
 
-.back-preview .text-preview #text_content span {
+.back-preview .text-preview #text_content > span {
   position: absolute;
   top: 344px;
   text-align: center;
