@@ -153,15 +153,19 @@ tshirts.change_image = function() {
 
 tshirts.update_image = function(input) {
   tshirts.reset_preview_box();
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
+  var reader = new FileReader();
 
-    reader.onload = function(e) {
-      $("#text_content img").attr("src", e.target.result);
-      // tshirts.change_image_color($("#text_content img")[0]);
-      tshirts.apply_canvas_to_tshirt();
-    }
+  reader.onload = function(e) {
+    $("#text_content img").attr("src", e.target.result);
+    // tshirts.change_image_color($("#text_content img")[0]);
+    tshirts.apply_canvas_to_tshirt();
+  }
+
+  if (input.files && input.files[0]) {
     reader.readAsDataURL(input.files[0]);
+  } else if ($(input).data("image")) {
+    $("#text_content img").attr("src", $(input).data("image"));
+    tshirts.apply_canvas_to_tshirt();
   }
 }
 
@@ -314,7 +318,7 @@ tshirts.rotate_text = function(line, pos) {
 
 //Option 4 Select number
 tshirts.select_number = function() {
-
+  console.log("sd")
   $("#add_nos_front").click(function() {
     execute_checkbox(this)
   })
@@ -512,7 +516,7 @@ tshirts.back_select_row = function() {
   })
   $("#tblSizes tbody tr td.remove a").off("click").on("click", function(e) {
     // players_count = players_count - 1;
-    $(this).parents("tr").nextAll().each(function(i,selector){
+    $(this).parents("tr").nextAll().each(function(i, selector) {
       txt = $(selector).find('td:first').text();
       $(selector).find('td:first').text(txt - 1)
     })
@@ -596,10 +600,11 @@ $("documnet").ready(function() {
     if ($("#add_names").prop('checked')) {
       tshirts.enter_text();
     }
+    tshirts.select_number();
     tshirts.change_enter_text();
     tshirts.logo_position_click_event();
     tshirts.change_image_and_text();
-    tshirts.select_number();
+    
   } else {
 
     if (!$("#add_back_name").prop('checked')) {
