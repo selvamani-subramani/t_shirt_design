@@ -280,10 +280,11 @@ body {
   position: absolute;
   top: -4px;
   right: -230px;
-  width: 220px;
+  width: 225px;
   height: 200px;
   z-index: 1000;
   border: 1px solid #aaa;
+  overflow: auto;
 }
 
 .text-decimal .load-images.box-design > img {
@@ -292,6 +293,52 @@ body {
   margin: 6px 2px 4px;
   width: auto;
   cursor: pointer;
+}
+
+.text-decimal .load-images.box-design > div {
+  position: relative;
+  width: 56px;
+  height: 25px;
+  background: red;
+  top: -12px;
+  left: -8px;
+}
+
+.text-decimal .load-images.box-design > div i.back {
+  width: 25px;
+  height: 25px;
+  display: block;
+  float: left;
+  background-image: url('../images/back.png');
+  background-size: 15px 25px;
+  background-repeat: no-repeat;
+  background-position: 6px 0;
+  cursor: pointer;
+}
+
+.text-decimal .load-images.box-design > div i.front {
+  width: 25px;
+  height: 25px;
+  display: block;
+  float: right;
+  background-image: url('../images/forward.png');
+  background-size: 15px 25px;
+  background-repeat: no-repeat;
+  background-position: 6px 0;
+  cursor: pointer;
+}
+
+.text-decimal .load-images.box-design > span {
+  position: absolute;
+  width: 98px;
+  height: 98px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('../images/loader01.gif');
+  background-size: 98px;
+  background-position: center center;
+  display: none;
 }
 
 
